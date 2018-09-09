@@ -1,0 +1,38 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+* {
+  direction: rtl;
+  text-align: right;
+}
+.mat-paginator-range-actions {
+  text-align: left;
+  direction: ltr;
+
+  .mat-paginator-range-label {
+    text-align: left;
+    direction: ltr;
+  }
+}
+.mat-dialog-container {
+  height: auto !important;
+}
+
+.spinner-div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  mat-spinner {
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

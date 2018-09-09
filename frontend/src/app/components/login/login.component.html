@@ -1,0 +1,9 @@
+<form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
+  <mat-form-field class="">
+    <input formControlName="username" matInput autofocus placeholder="اسم المستخدم">
+  </mat-form-field>
+  <mat-form-field class="">
+    <input type="password" formControlName="password" matInput placeholder="كلمة السر">
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="!loginForm.valid">تسجيل الدخول</button>
+</form>
