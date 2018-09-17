@@ -14,21 +14,34 @@ module.exports.register = function(req, res) {
     });
     return;
   }
-  var user = new User();
+  User.find({ username: req.body.username }, function(err, user) {
+    if (!err) {
+      if (user.length > 0) {
+        sendJSONresponse(res, 400, {
+          message: "User already exists"
+        });
+      } else {
+        var user = new User();
 
-  user.name = req.body.name;
-  user.username = req.body.username;
-  user.isAdmin = req.body.isAdmin;
+        user.name = req.body.name;
+        user.username = req.body.username;
+        user.isAdmin = req.body.isAdmin;
 
-  user.setPassword(req.body.password);
+        user.setPassword(req.body.password);
 
-  user.save(function(err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      token: token
-    });
+        user.save(function(err) {
+          var token;
+          token = user.generateJwt();
+          sendJSONresponse(res, 200, {
+            message: "User Added"
+          });
+        });
+      }
+    } else {
+      sendJSONresponse(res, 400, {
+        message: err
+      });
+    }
   });
 };
 

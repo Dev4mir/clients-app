@@ -66,6 +66,8 @@ export class ClientsComponent implements OnInit {
       ELEMENT_DATA = res;
       this.updateTableData();
     });
+
+    // console.log(process.env.NODE_ENV);
     this.usersService.getUsers().subscribe(res => console.log(res));
   }
 

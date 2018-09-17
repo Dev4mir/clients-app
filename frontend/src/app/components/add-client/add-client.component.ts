@@ -61,6 +61,7 @@ export class AddClientComponent implements OnInit {
       },
       err => {
         console.log(err);
+        this.isLoading = false;
       },
       () => this.close()
     );

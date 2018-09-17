@@ -46,7 +46,7 @@ UserSchema.methods.generateJwt = function() {
       exp: parseInt(expiry.getTime() / 1000),
       isAdmin: this.isAdmin
     },
-    "yourSecretKey" // DO NOT KEEP YOUR SECRET IN THE CODE!
+    "abc123" // DO NOT KEEP YOUR SECRET IN THE CODE!
   );
 };
 

@@ -13,7 +13,9 @@ let ClientSchema = new Schema({
     type: String
   },
   phone: {
-    type: Number
+    type: Number,
+    unique: true,
+    required: true
   },
   mobile: {
     type: Number

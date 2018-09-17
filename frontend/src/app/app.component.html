@@ -1,3 +1,14 @@
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav position="end" #sidenav mode="side" [(opened)]="opened">
+        <mat-nav-list>
+            <a mat-list-item routerLink="/" routerLinkActive="active"> العملاء </a>
+            <a mat-list-item routerLink="/users" routerLinkActive="active"> المستخدمين </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <p>
+            <mat-icon color="primary" svgIcon="menu" (click)="sidenav.toggle()"></mat-icon>
+        </p>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

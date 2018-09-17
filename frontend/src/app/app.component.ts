@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { ClientsServiceService } from "./services/clients/clients-service.service";
 
 @Component({
-  selector: 'moltaka-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "moltaka-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = 'moltaka';
+  opened: boolean = true;
+  constructor(private sr: ClientsServiceService) {}
 }

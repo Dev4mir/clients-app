@@ -6,7 +6,7 @@ import users from "../controllers/users";
 import clients from "../controllers/clients";
 
 var auth = jwt({
-  secret: "yourSecretKey",
+  secret: "abc123",
   userProperty: "payload"
 });
 

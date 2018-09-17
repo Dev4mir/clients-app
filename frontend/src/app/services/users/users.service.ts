@@ -7,6 +7,7 @@ import { AuthService } from "../auth/auth.service";
 
 import { UserDetails } from "../../models/user";
 import { TokenResponse, TokenPayload } from "../../models/token";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +15,8 @@ import { TokenResponse, TokenPayload } from "../../models/token";
 export class UsersService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  private url: string = "/api/user/";
+  private baseUrl = environment.baseUrl;
+  private url: string = this.baseUrl + "api/user/";
   private request(
     method: "post" | "get",
     type: "" | "",

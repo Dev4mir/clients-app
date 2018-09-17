@@ -10,6 +10,7 @@ import { ClientsServiceService } from "../../services/clients/clients-service.se
   styleUrls: ["./edit-client.component.scss"]
 })
 export class EditClientComponent implements OnInit {
+  isLoading: boolean = false;
   file;
 
   constructor(
@@ -35,6 +36,7 @@ export class EditClientComponent implements OnInit {
   editClient() {
     let formData = new FormData();
     let fgData = this.editClientForm.value;
+    this.isLoading = true;
 
     for (let key in fgData) {
       formData.append(key, fgData[key]);
@@ -47,9 +49,11 @@ export class EditClientComponent implements OnInit {
 
     this.clientService.editClient(this.data._id, formData).subscribe(
       res => {
+        this.isLoading = false;
         console.log(res);
       },
       err => {
+        this.isLoading = false;
         console.log(err);
       },
       () => this.close()

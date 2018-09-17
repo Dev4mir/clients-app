@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 
 import { UserDetails } from "../../models/user";
 import { TokenResponse, TokenPayload } from "../../models/token";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -53,8 +54,9 @@ export class AuthService {
       return false;
     }
   }
+  private baseUrl = environment.baseUrl;
 
-  private url: string = "/api/auth/";
+  private url: string = this.baseUrl + "api/auth/";
   private request(
     method: "post" | "get",
     type: "login" | "register",

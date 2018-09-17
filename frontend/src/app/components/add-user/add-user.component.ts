@@ -30,14 +30,16 @@ export class AddUserComponent implements OnInit {
     this.isLoading = true;
     console.log(this.userCredentionals.value);
     this.auth.register(this.userCredentionals.value).subscribe(
-      () => {
-        this.isLoading = false;
+      res => {
+        console.log(res);
+        this.close();
       },
       err => {
-        console.error(err);
+        this.isLoading = false;
+        console.log(err);
       },
       () => {
-        this.close();
+        this.isLoading = false;
       }
     );
   }

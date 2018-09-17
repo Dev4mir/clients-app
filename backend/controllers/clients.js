@@ -48,19 +48,29 @@ module.exports.getClients = (req, res) => {
 };
 
 module.exports.addClient = (req, res) => {
-  let client = new Client(req.body);
-  req.files.forEach(el => {
-    client.clientImages.push(el.filename);
+  Client.find({ phone: req.body.phone }).exec((err, client) => {
+    if (!err) {
+      if (client.length > 0) {
+        res.status(401).send("Client already exists");
+      } else {
+        let client = new Client(req.body);
+        req.files.forEach(el => {
+          client.clientImages.push(el.filename);
+        });
+        client
+          .save()
+          .then(client => {
+            res.status(200).json({ Client: "Added" });
+            req.app.io.emit("new client", { client: client });
+          })
+          .catch(err => {
+            res.status(400).send("Falid!");
+          });
+      }
+    } else {
+      res.status(400).json({ message: err });
+    }
   });
-  client
-    .save()
-    .then(client => {
-      res.status(200).json({ Client: "Added" });
-    })
-    .catch(err => {
-      res.status(400).send("Falid!");
-    });
-  req.app.io.emit("new client", { client: client });
 };
 
 module.exports.editClient = (req, res, next) => {

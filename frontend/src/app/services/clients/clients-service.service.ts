@@ -9,6 +9,7 @@ import * as io from "socket.io-client";
 import { AuthService } from "../auth/auth.service";
 import { Client } from "../../models/client";
 import { TokenResponse } from "../../models/token";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -29,9 +30,14 @@ export class ClientsServiceService {
       "info",
       sanitizer.bypassSecurityTrustResourceUrl("assets/icons/info.svg")
     );
+    iconRegistry.addSvgIcon(
+      "menu",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/icons/menu.svg")
+    );
   }
-  private url = "/api/clients/";
-  private socket = io("/");
+  private baseUrl = environment.baseUrl;
+  private url = this.baseUrl + "api/clients/";
+  private socket = io(this.baseUrl);
 
   private request(
     method: "post" | "get",
@@ -88,3 +94,5 @@ export class ClientsServiceService {
     return observable;
   }
 }
+
+//mongoimport -d clients -c clients --type csv --file clients.csv --headerline
