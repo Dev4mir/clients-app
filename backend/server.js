@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
 import mongoose from "mongoose";
 import passport from "passport";
 
@@ -31,9 +32,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/uploads", express.static("uploads"));
-app.use("/", express.static("public"));
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.use(passport.initialize());
 app.use("/api/", routesApi);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 app.use(function(req, res, next) {
   var err = new Error("Not Found");

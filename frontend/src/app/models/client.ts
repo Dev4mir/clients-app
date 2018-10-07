@@ -7,4 +7,7 @@ export interface Client {
   address?: string;
   username?: string;
   password?: string;
+  idNumber: number;
+  note: string;
+  withRatio: boolean;
 }

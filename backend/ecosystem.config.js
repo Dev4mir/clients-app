@@ -7,7 +7,7 @@ const TARGET_SERVER_USER = process.env.TARGET_SERVER_USER
   ? process.env.TARGET_SERVER_USER.trim()
   : "";
 // Target server application path
-const TARGET_SERVER_APP_PATH = `/home/${TARGET_SERVER_USER}/app`;
+const TARGET_SERVER_APP_PATH = `/home/${TARGET_SERVER_USER}/clients-app`;
 // Your repository
 const REPO = "git@gitlab.com:dev4mir/clients-app.git";
 
@@ -18,8 +18,9 @@ module.exports = {
    */
   apps: [
     {
-      name: "clientsApp",
-      script: "server.js",
+      name: "clientApp",
+      script: "npm",
+      args: "start",
       env: {
         NODE_ENV: "development"
       },
@@ -43,7 +44,8 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       path: TARGET_SERVER_APP_PATH,
       "post-deploy":
-        "pm2 startOrRestart ecosystem.config.js --env=production" +
+        "npm install" +
+        " && pm2 startOrRestart ecosystem.config.js --env=production" +
         " && pm2 save"
     }
   }

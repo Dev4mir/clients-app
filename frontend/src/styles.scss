@@ -36,3 +36,18 @@
     transform: translate(-50%, -50%);
   }
 }
+.mat-icon {
+  margin: 5px;
+  &:not(.not-clickable) {
+    cursor: pointer;
+  }
+
+  &.add-new-icon {
+    height: 40px;
+    width: 40px;
+    color: #2196f3;
+  }
+}
+.mat-paginator-range-actions .mat-paginator-range-label {
+  width: 100px;
+}

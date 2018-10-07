@@ -1,0 +1,14 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav position="end" #sidenav mode="side" [(opened)]="opened">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/clients" routerLinkActive="active"> العملاء </a>
+      <a mat-list-item routerLink="/users" routerLinkActive="active" *ngIf="isAdmin()"> المستخدمين </a>
+      <button class="logout-btn" mat-list-item mat-raised-button color="warn" (click)="logout()">خروج</button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <span class="username">{{userData.name}}</span>
+    <mat-icon color="primary" svgIcon="menu" (click)="sidenav.toggle()"></mat-icon>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

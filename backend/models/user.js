@@ -17,6 +17,11 @@ let UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  role: String,
+  active: {
+    type: Boolean,
+    default: true
+  },
   hash: String,
   salt: String
 });
@@ -44,7 +49,8 @@ UserSchema.methods.generateJwt = function() {
       username: this.username,
       name: this.name,
       exp: parseInt(expiry.getTime() / 1000),
-      isAdmin: this.isAdmin
+      isAdmin: this.isAdmin,
+      role: this.role
     },
     "abc123" // DO NOT KEEP YOUR SECRET IN THE CODE!
   );

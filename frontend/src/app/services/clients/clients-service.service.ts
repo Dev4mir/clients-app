@@ -34,6 +34,14 @@ export class ClientsServiceService {
       "menu",
       sanitizer.bypassSecurityTrustResourceUrl("assets/icons/menu.svg")
     );
+    iconRegistry.addSvgIcon(
+      "add-new",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/icons/add_circle.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "check-circle",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/icons/check_circle.svg")
+    );
   }
   private baseUrl = environment.baseUrl;
   private url = this.baseUrl + "api/clients/";
@@ -74,11 +82,9 @@ export class ClientsServiceService {
     return this.request("get", "");
   }
   public createClient($client) {
-    // this.socket.emit("add-client", $client);
     return this.request("post", "add", "", $client);
   }
   public editClient($id, $client) {
-    // this.socket.emit("edit-client", $id, $client);
     return this.request("post", "edit", $id, $client);
   }
 

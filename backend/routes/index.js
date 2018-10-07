@@ -27,7 +27,8 @@ router.post(
 );
 
 // User Routes
-router.get("/user", auth, users.getUsers);
+router.get("/users", auth, users.getUsers);
+router.post("/users/edit/:id", auth, users.editUser);
 
 // authentication
 router.post("/auth/register", auth, userAuth.register);

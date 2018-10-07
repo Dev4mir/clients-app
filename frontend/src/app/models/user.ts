@@ -3,6 +3,7 @@ export interface UserDetails {
   username: string;
   name: string;
   isAdmin: boolean;
+  role: string;
   exp: number;
   iat: number;
 }

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
+import * as jwtDecode from "jwt-decode";
 
 import { UserDetails } from "../../models/user";
 import { TokenResponse, TokenPayload } from "../../models/token";
@@ -38,9 +39,8 @@ export class AuthService {
     const token = this.getToken();
     let payload;
     if (token) {
-      payload = token.split(".")[1];
-      payload = window.atob(payload);
-      return JSON.parse(payload);
+      payload = jwtDecode(token);
+      return payload;
     } else {
       return null;
     }
@@ -49,7 +49,12 @@ export class AuthService {
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
     if (user) {
-      return user.exp > Date.now() / 1000;
+      if (user.exp > Date.now() / 1000) {
+        return true;
+      } else {
+        this.logout();
+        return false;
+      }
     } else {
       return false;
     }

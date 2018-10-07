@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>المستخدمين</h2>
+    </div>
+    <div class="col-6">
+      <mat-icon class="add-new-icon" svgIcon="add-new" (click)="openAddUserDialog()"></mat-icon>
+    </div>
+    <div class="col-6">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="بحث">
+      </mat-form-field>
+    </div>
+  </div>
+  <moltaka-data-table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [ArabicColumns]="ArabicColumns"
+    [filterValue]="filterValue" [viewComponent]="viewComponent" [editComponent]="editComponent"></moltaka-data-table>
+</div>

@@ -1,0 +1,26 @@
+.sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.active {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.mat-nav-list {
+  margin-top: 150px;
+}
+mat-sidenav {
+  width: 170px;
+}
+.logout-btn {
+  width: 100%;
+  margin-top: 100px;
+}
+.username {
+  float: left;
+  color: #4242bd;
+  margin: 0 15px;
+  font-size: 20px;
+}

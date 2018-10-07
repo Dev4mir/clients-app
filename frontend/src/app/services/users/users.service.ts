@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { AuthService } from "../auth/auth.service";
+import * as io from "socket.io-client";
 
 import { UserDetails } from "../../models/user";
 import { TokenResponse, TokenPayload } from "../../models/token";
@@ -16,17 +17,20 @@ export class UsersService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   private baseUrl = environment.baseUrl;
-  private url: string = this.baseUrl + "api/user/";
+  private url: string = this.baseUrl + "api/users/";
+  private socket = io(this.baseUrl);
+
   private request(
     method: "post" | "get",
-    type: "" | "",
+    type: "" | "edit",
+    id?,
     user?: TokenPayload
   ): Observable<any> {
     let base;
 
     if (method === "post") {
       console.log(user);
-      base = this.http.post(`${this.url}${type}`, user, {
+      base = this.http.post(`${this.url}${type}/${id}`, user, {
         headers: { Authorization: `Bearer ${this.auth.getToken()}` }
       });
     } else {
@@ -45,5 +49,19 @@ export class UsersService {
 
   public getUsers() {
     return this.request("get", "");
+  }
+  public editUser($id, $user) {
+    return this.request("post", "edit", $id, $user);
+  }
+  ioInit($ioEvent) {
+    const observable = new Observable<{ user: Object }>(observer => {
+      this.socket.on($ioEvent, data => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
   }
 }

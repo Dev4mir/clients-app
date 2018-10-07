@@ -51,7 +51,7 @@ module.exports.addClient = (req, res) => {
   Client.find({ phone: req.body.phone }).exec((err, client) => {
     if (!err) {
       if (client.length > 0) {
-        res.status(401).send("Client already exists");
+        res.status(401).send("العميل مسجل سابقاً");
       } else {
         let client = new Client(req.body);
         req.files.forEach(el => {
@@ -60,11 +60,11 @@ module.exports.addClient = (req, res) => {
         client
           .save()
           .then(client => {
-            res.status(200).json({ Client: "Added" });
+            res.status(200).json("تم اضافة العميل");
             req.app.io.emit("new client", { client: client });
           })
           .catch(err => {
-            res.status(400).send("Falid!");
+            res.status(400).send("حدث خطأ");
           });
       }
     } else {
@@ -87,15 +87,18 @@ module.exports.editClient = (req, res, next) => {
       client.address = req.body.address;
       client.username = req.body.username;
       client.password = req.body.password;
+      client.withRatio = req.body.withRatio;
+      client.note = req.body.note;
+      client.idNumber = req.body.idNumber;
 
       client
         .save()
         .then(() => {
-          res.json("Update done");
+          res.json("تم التعديل");
           req.app.io.emit("edit client", { client: client });
         })
         .catch(err => {
-          res.status(400).send("update faild!");
+          res.status(400).send("خطأ فى التعديل");
         });
     }
   });
